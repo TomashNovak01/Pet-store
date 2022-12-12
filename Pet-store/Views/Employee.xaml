@@ -1,0 +1,70 @@
+﻿<Window x:Class="Pet_store.Views.Employee"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pet_store.Views"
+        xmlns:viewModel="clr-namespace:Pet_store.ViewModels"
+        mc:Ignorable="d"
+        Title="Employee" Height="600" Width="1200">
+
+    <Window.DataContext>
+        <viewModel:EmployeeViewModel/>
+    </Window.DataContext>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Авторизация" Command="{Binding GoToAuthorization}" InputGestureText="Перейти на окно авторизации"/>
+        </Menu>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem Content="{Binding CurrentUser.FullName, UpdateSourceTrigger=PropertyChanged}" ContentStringFormat="Вы вошли как: {0}"/>
+        </StatusBar>
+
+        <TabControl>
+            <TabItem Header="Клиенты">
+                <DataGrid ItemsSource="{Binding ListUsers, UpdateSourceTrigger=PropertyChanged}" 
+                              AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Фамилия" 
+                                                Binding="{Binding Lastname, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Имя" 
+                                                Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Электронная почта" 
+                                                Binding="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Пароль" 
+                                                Binding="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Номер телефона" 
+                                                Binding="{Binding Phone, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Дата рождения" 
+                                                Binding="{Binding DateOfBirthday, UpdateSourceTrigger=PropertyChanged}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Покупки">
+                <TabControl>
+                    <TabItem Header="Корзины">
+                        <DataGrid ItemsSource="{Binding ListBaskets, UpdateSourceTrigger=PropertyChanged}" 
+                                  AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Индекс" Binding="{Binding Id}"/>
+                                <DataGridTextColumn Header="Индекс Заказа" Binding="{Binding IdOrder}"/>
+                                <DataGridTextColumn Header="Индекс продукта" Binding="{Binding IdProduct}"/>
+                                <DataGridTextColumn Header="Количество" Binding="{Binding Count, StringFormat={}{0} шт.}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Header="Заказы">
+                        <DataGrid ItemsSource="{Binding ListOrders, UpdateSourceTrigger=PropertyChanged}" 
+                                  AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Индекс" Binding="{Binding Id}"/>
+                                <DataGridTextColumn Header="Индекс клиента" Binding="{Binding IdUser}"/>
+                                <DataGridTextColumn Header="Дата заказа" Binding="{Binding DateOfOrder}"/>
+                                <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat={}{0} руб.}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>

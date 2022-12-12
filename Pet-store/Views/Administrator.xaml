@@ -1,0 +1,133 @@
+﻿<Window x:Class="Pet_store.Views.Administrator"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pet_store.Views"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:viewModel="clr-namespace:Pet_store.ViewModels"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Administrator" Height="600" Width="1200">
+
+    <Window.DataContext>
+        <viewModel:AdministratorViewModel/>
+    </Window.DataContext>
+    
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Авторизация" Command="{Binding GoToAuthorization}"/>
+        </Menu>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem Content="{Binding CurrentUser.FullName, UpdateSourceTrigger=PropertyChanged}" ContentStringFormat="Вы вошли как: {0}"/>
+        </StatusBar>
+        <TabControl>
+            <TabItem Header="Пользователи">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid ItemsSource="{Binding ListUsers, UpdateSourceTrigger=PropertyChanged}" 
+                              SelectedItem="{Binding SelectedUser, UpdateSourceTrigger=PropertyChanged}"
+                              AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Фамилия" 
+                                                Binding="{Binding User.Lastname, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Имя" 
+                                                Binding="{Binding User.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Электронная почта" 
+                                                Binding="{Binding User.Email, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Пароль" 
+                                                Binding="{Binding User.Password, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Номер телефона" 
+                                                Binding="{Binding User.Phone, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Дата рождения" 
+                                                Binding="{Binding User.DateOfBirthday, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Роль" 
+                                                Binding="{Binding UserRole.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataGrid.Columns>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <i:InvokeCommandAction Command="{Binding Path=EditUser}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type viewModel:AdministratorViewModel}}}">
+                                <MenuItem Header="Изменить пользователя" Command="{Binding EditUser}"/>
+                                <MenuItem Header="Удалить пользователя" Command="{Binding DeleteUser}"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+
+                    <Button Grid.Row="1" Command="{Binding GoToUser}" 
+                                Content="Добавить пользователя" materialDesign:ButtonAssist.CornerRadius="15" Margin="10 5"/>
+                    </Grid>
+                
+            </TabItem>
+            <TabItem Header="Товары">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid ItemsSource="{Binding ListProduct, UpdateSourceTrigger=PropertyChanged}" 
+                              AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Наименование" 
+                                                Binding="{Binding Product.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Рейтинг" 
+                                                Binding="{Binding Product.Rating, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Цена" 
+                                                Binding="{Binding Product.Price, StringFormat={}{0} руб., UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Категории" 
+                                                Binding="{Binding CategoriesName, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataGrid.Columns>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <i:InvokeCommandAction Command="{Binding Path=EditProduct}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type viewModel:AdministratorViewModel}}}">
+                                <MenuItem Header="Изменить продукт" Command="{Binding EditProduct}"/>
+                                <MenuItem Header="Удалить продукт" Command="{Binding DeleteProduct}"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+                    
+                    <Button Grid.Row="1" Content="Добавить продукт" Command="{Binding GoToProduct}" 
+                                materialDesign:ButtonAssist.CornerRadius="15" Margin="10 5"/>
+                    </Grid>
+            </TabItem>
+            <TabItem Header="Покупки">
+                <TabControl>
+                    <TabItem Header="Корзины">
+                        <DataGrid ItemsSource="{Binding ListBaskets, UpdateSourceTrigger=PropertyChanged}" 
+                                  AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Индекс" Binding="{Binding Id}"/>
+                                <DataGridTextColumn Header="Индекс Заказа" Binding="{Binding IdOrder}"/>
+                                <DataGridTextColumn Header="Индекс продукта" Binding="{Binding IdProduct}"/>
+                                <DataGridTextColumn Header="Количество" Binding="{Binding Count, StringFormat={}{0} шт.}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Header="Заказы">
+                        <DataGrid ItemsSource="{Binding ListOrders, UpdateSourceTrigger=PropertyChanged}" 
+                                  AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Индекс" Binding="{Binding Id}"/>
+                                <DataGridTextColumn Header="Индекс клиента" Binding="{Binding IdUser}"/>
+                                <DataGridTextColumn Header="Дата заказа" Binding="{Binding DateOfOrder}"/>
+                                <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat={}{0} руб.}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>
