@@ -107,7 +107,7 @@ namespace Pet_store.ViewModels
         private bool _canEditUserCommandExcute(object p) => true;
         private void _onEditUserCommandExcuted(object p)
         {
-            if (SelectedUser.UserRole.Id != Role.ROLE_ADMINISTRATOR)
+            if (_selectedUser != null && SelectedUser.User.IdRole != Role.ROLE_ADMINISTRATOR)
             {
                 SessionData.SelectedUser = SelectedUser;
                 SessionData.CurrentDialogue = new Views.UI.User();
@@ -123,7 +123,7 @@ namespace Pet_store.ViewModels
         private bool _canDeleteUserCommandExcute(object p) => true;
         private void _onDeleteUserCommandExcuted(object p)
         {
-            if (SelectedUser.UserRole.Id != Role.ROLE_ADMINISTRATOR)
+            if (_selectedUser != null && SelectedUser.UserRole.Id != Role.ROLE_ADMINISTRATOR)
             {
                 DataBaseContext.Instance.Users.Remove(SelectedUser.User);
                 DataBaseContext.Instance.SaveChanges();
@@ -148,9 +148,12 @@ namespace Pet_store.ViewModels
         private bool _canEditProductCommandExcute(object p) => true;
         private void _onEditProductCommandExcuted(object p)
         {
-            SessionData.SelectedProduct = SelectedProduct;
-            SessionData.CurrentDialogue = new Views.UI.Product();
-            SessionData.CurrentDialogue.Show();
+            if (_selectedProduct != null)
+            {
+                SessionData.SelectedProduct = SelectedProduct;
+                SessionData.CurrentDialogue = new Views.UI.Product();
+                SessionData.CurrentDialogue.Show();
+            }
         }
         #endregion
 
@@ -159,8 +162,11 @@ namespace Pet_store.ViewModels
         private bool _canDeleteProductCommandExcute(object p) => true;
         private void _onDeleteProductCommandExcuted(object p)
         {
-            DataBaseContext.Instance.Products.Remove(SelectedProduct.Product);
-            DataBaseContext.Instance.SaveChanges();
+            if (_selectedProduct != null)
+            {
+                DataBaseContext.Instance.Products.Remove(SelectedProduct.Product);
+                DataBaseContext.Instance.SaveChanges();
+            }
         }
         #endregion
         #endregion

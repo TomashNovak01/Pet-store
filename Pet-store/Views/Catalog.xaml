@@ -8,17 +8,17 @@
         xmlns:viewModel="clr-namespace:Pet_store.ViewModels"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="Каталог" Height="600" Width="1200">
+        Title="Каталог" Height="600" Width="1200" Loaded="Window_Loaded">
 
     <Window.DataContext>
         <viewModel:CatalogViewModel/>
     </Window.DataContext>
 
-    <i:Interaction.Triggers>
+    <!--<i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding InitCurrentWindow}"/>
         </i:EventTrigger>
-    </i:Interaction.Triggers>
+    </i:Interaction.Triggers>-->
 
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -50,7 +50,7 @@
                                         <ToggleButton IsChecked="{Binding IsInBasket, UpdateSourceTrigger=PropertyChanged}">
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="Checked">
-                                                    <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type viewModel:CatalogViewModel}}, Path=DataContext.AddInBasket}"/>
+                                                    <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.AddInBasket}"/>
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>
                                         </ToggleButton>

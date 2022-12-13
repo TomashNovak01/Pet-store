@@ -94,7 +94,7 @@ namespace Pet_store.ViewModels
                 SessionData.CurrentUser = user;
 
                 if (user.IdRole == Role.ROLE_CUSTOMER)
-                    SessionData.CurrentDialogue.Close();
+                    SessionData.CurrentWindow = new Catalog();
                 else if (user.IdRole == Role.ROLE_EMPLOYEE)
                     SessionData.CurrentWindow = new Employee();
                 else if (user.IdRole == Role.ROLE_ADMINISTRATOR)

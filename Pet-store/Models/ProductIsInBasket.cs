@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Pet_store.Models
@@ -14,6 +15,17 @@ namespace Pet_store.Models
                 var categories = DataBaseContext.Instance.Categories.Where(c => categoryId.Contains(c.Id));
 
                 return string.Join('\n', categories.Select(c => c.Name));
+            }
+        }
+
+        public List<Category> ProductCategories
+        {
+            get
+            {
+                var categoryId = Product?.ProductCategories.Select(pc => pc.IdCategory);
+                var categories = DataBaseContext.Instance.Categories.Where(c => categoryId.Contains(c.Id));
+
+                return categories.ToList();
             }
         }
         public bool IsInBasket { get; set; }

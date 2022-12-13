@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Pet_store.Data;
+using System.Windows;
 
 namespace Pet_store.Views
 {
@@ -8,5 +9,7 @@ namespace Pet_store.Views
     public partial class Catalog : Window
     {
         public Catalog() => InitializeComponent();
+
+        private void Window_Loaded(object sender, RoutedEventArgs e) => SessionData.CurrentWindow = this;
     }
 }

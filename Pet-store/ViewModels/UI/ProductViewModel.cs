@@ -1,4 +1,5 @@
-﻿using Pet_store.Models;
+﻿using Pet_store.Data;
+using Pet_store.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
@@ -10,9 +11,9 @@ namespace Pet_store.ViewModels.UI
     internal class ProductViewModel : ViewModelBase
     {
         #region Fields
-        #region ListUsers
-        private string _name;
-        public string Name
+        #region Name
+        private string? _name = SessionData.SelectedProduct.Product.Name;
+        public string? Name
         {
             get => _name;
             set => Set(ref _name, value);
@@ -20,7 +21,7 @@ namespace Pet_store.ViewModels.UI
         #endregion
 
         #region Rating
-        private float? _rating;
+        private float? _rating = SessionData.SelectedProduct.Product.Rating;
         public float? Rating
         {
             get => _rating;
@@ -29,7 +30,7 @@ namespace Pet_store.ViewModels.UI
         #endregion
 
         #region Price
-        private decimal _price;
+        private decimal _price = SessionData.SelectedProduct.Product.Price;
         public decimal Price
         {
             get => _price;
@@ -47,7 +48,7 @@ namespace Pet_store.ViewModels.UI
         #endregion
 
         #region SelectedCategories
-        private List<Category> _selectedCategories;
+        private List<Category> _selectedCategories = SessionData.SelectedProduct.ProductCategories;
         public List<Category> SelectedCategories
         {
             get => _selectedCategories;
@@ -55,12 +56,21 @@ namespace Pet_store.ViewModels.UI
         }
         #endregion
 
-        #region SelectedCategory
-        private Category? _selectedCategory;
-        public Category? SelectedCategory
+        #region SelectedCategoryCB
+        private Category? _selectedCategoryCB;
+        public Category? SelectedCategoryCB
         {
-            get => _selectedCategory;
-            set => Set(ref _selectedCategory, value);
+            get => _selectedCategoryCB;
+            set => Set(ref _selectedCategoryCB, value);
+        }
+        #endregion
+
+        #region SelectedCategoryDG
+        private Category? _selectedCategoryDG;
+        public Category? SelectedCategoryDG
+        {
+            get => _selectedCategoryDG;
+            set => Set(ref _selectedCategoryDG, value);
         }
         #endregion
         #endregion
@@ -78,10 +88,10 @@ namespace Pet_store.ViewModels.UI
         private bool _canAddCategoryCommandExcute(object p) => true;
         private void _onAddCategoryCommandExcuted(object p)
         {
-            if (!_selectedCategories.Contains(_selectedCategory!))
+            if (!_selectedCategories.Contains(_selectedCategoryCB!))
             {
-                _selectedCategories.Add(_selectedCategory);
-                _selectedCategory = null;
+                _selectedCategories.Add(_selectedCategoryCB);
+                _selectedCategoryCB = null;
             }
         }
         #endregion
@@ -91,8 +101,8 @@ namespace Pet_store.ViewModels.UI
         private bool _canDeleteCategoryCommandExcute(object p) => true;
         private void _onDeleteCategoryCommandExcuted(object p)
         {
-            if (_selectedCategory != null)
-                _selectedCategories.Remove(_selectedCategory);
+            if (_selectedCategoryDG != null)
+                _selectedCategories.Remove(_selectedCategoryDG);
         }
         #endregion
 
@@ -101,7 +111,7 @@ namespace Pet_store.ViewModels.UI
         private bool _canAddProductCommandExcute(object p) => true;
         private void _onAddProductCommandExcuted(object p)
         {
-            if (_name != null && _rating != null)
+            if (_name != null && _rating != null && _rating > 0 && _rating <= 5 && _selectedCategories.Count != 0)
             {
                 Product newProduct = new Product()
                 {

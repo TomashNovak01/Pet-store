@@ -54,7 +54,7 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <DataGrid.ContextMenu>
-                            <ContextMenu DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type viewModel:AdministratorViewModel}}}">
+                            <ContextMenu>
                                 <MenuItem Header="Изменить пользователя" Command="{Binding EditUser}"/>
                                 <MenuItem Header="Удалить пользователя" Command="{Binding DeleteUser}"/>
                             </ContextMenu>
@@ -74,6 +74,7 @@
                     </Grid.RowDefinitions>
 
                     <DataGrid ItemsSource="{Binding ListProduct, UpdateSourceTrigger=PropertyChanged}" 
+                              SelectedItem="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}"
                               AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Наименование" 
@@ -91,7 +92,7 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <DataGrid.ContextMenu>
-                            <ContextMenu DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type viewModel:AdministratorViewModel}}}">
+                            <ContextMenu>
                                 <MenuItem Header="Изменить продукт" Command="{Binding EditProduct}"/>
                                 <MenuItem Header="Удалить продукт" Command="{Binding DeleteProduct}"/>
                             </ContextMenu>
