@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pet_store.Views"
         xmlns:viewModel="clr-namespace:Pet_store.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="Employee" Height="600" Width="1200">
 
@@ -60,6 +61,19 @@
                                 <DataGridTextColumn Header="Индекс клиента" Binding="{Binding IdUser}"/>
                                 <DataGridTextColumn Header="Дата заказа" Binding="{Binding DateOfOrder}"/>
                                 <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat={}{0} руб.}"/>
+                                <DataGridTemplateColumn Header="Готовность" SortMemberPath="IsReady">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ToggleButton IsChecked="{Binding IsReady, UpdateSourceTrigger=PropertyChanged}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Checked">
+                                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.GetReadyStatus}"/>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </ToggleButton>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
                     </TabItem>

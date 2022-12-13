@@ -48,6 +48,7 @@ namespace Pet_store.ViewModels
         public EmployeeViewModel()
         {
             GoToAuthorization = new LambdaCommand(_onGoToAuthorizationCommandExcuted, _canGoToAuthorizationCommandExcute);
+            GetReadyStatus = new LambdaCommand(_onGetReadyStatusCommandExcuted, _canGetReadyStatusCommandExcute);
         }
 
         #region Commands
@@ -59,6 +60,12 @@ namespace Pet_store.ViewModels
             SessionData.CurrentDialogue = new AuthorAndRegister();
             SessionData.CurrentDialogue.Show();
         }
+        #endregion
+
+        #region GetReadyStatus
+        public ICommand GetReadyStatus { get; }
+        private bool _canGetReadyStatusCommandExcute(object p) => true;
+        private void _onGetReadyStatusCommandExcuted(object p) => DataBaseContext.Instance.SaveChanges();
         #endregion
         #endregion
     }

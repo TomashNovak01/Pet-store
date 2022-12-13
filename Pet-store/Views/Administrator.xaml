@@ -124,6 +124,7 @@
                                 <DataGridTextColumn Header="Индекс клиента" Binding="{Binding IdUser}"/>
                                 <DataGridTextColumn Header="Дата заказа" Binding="{Binding DateOfOrder}"/>
                                 <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat={}{0} руб.}"/>
+                                <DataGridTextColumn Header="Готовность" Binding="{Binding IsReady}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </TabItem>

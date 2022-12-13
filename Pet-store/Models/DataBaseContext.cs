@@ -341,7 +341,7 @@ namespace Pet_store.Models
             users.ForEach(u => Instance.UsersLists.Add(new()
             {
                 User = u,
-                //UserRole = (Role)Instance.Roles.Where(r => r.Id == u.IdRole)
+                UserRole = Instance.Roles.First(r => r.Id == u.IdRole)
             }));
         }
 
