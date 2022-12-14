@@ -324,7 +324,7 @@ namespace Pet_store.Models
         private static void InitBasket()
         {
             var productList = Instance.Products.ToList();
-            Instance.InBasket = new List<ProductIsInBasket>(productList.Count);
+            Instance.InBasket = new(productList.Count);
 
             productList.ForEach(p => Instance.InBasket.Add(new()
             {
@@ -336,7 +336,7 @@ namespace Pet_store.Models
         private static void InitUsersList()
         {
             var users = Instance.Users.ToList();
-            Instance.UsersLists = new List<UsersList>(users.Count);
+            Instance.UsersLists = new(users.Count);
 
             users.ForEach(u => Instance.UsersLists.Add(new()
             {
