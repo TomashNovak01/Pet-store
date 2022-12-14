@@ -17,24 +17,34 @@
         <TabControl Padding="20 0">
             <TabItem Header="Авторизация">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                    <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" FontSize="18" Margin="0,35,0,0" materialDesign:HintAssist.Hint="Почта" materialDesign:HintAssist.IsFloating="True"/>
-                    <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" FontSize="18" Margin="0,10,0,0" materialDesign:HintAssist.Hint="Пароль" materialDesign:HintAssist.IsFloating="True"/>
-                    <Button Content="Войти" Command="{Binding LogInCommand}" FontSize="20" Margin="0,25,0,0" materialDesign:ButtonAssist.CornerRadius="15"/>
+                    <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" FontSize="18" 
+                             Margin="0,35,0,0" materialDesign:HintAssist.Hint="Почта" materialDesign:HintAssist.IsFloating="True"/>
+                    <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" FontSize="18" 
+                             Margin="0,10,0,0" materialDesign:HintAssist.Hint="Пароль" materialDesign:HintAssist.IsFloating="True"/>
+                    <Button Content="Войти" Command="{Binding LogInCommand}" FontSize="20" 
+                            Margin="0,25,0,0" materialDesign:ButtonAssist.CornerRadius="15"/>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Регистрация">
                 <Grid>
                     <StackPanel Orientation="Vertical">
-                        <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" FontSize="18"  materialDesign:HintAssist.Hint="Фамилия" materialDesign:HintAssist.IsFloating="True"/>
-                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" FontSize="18"  materialDesign:HintAssist.Hint="Имя" materialDesign:HintAssist.IsFloating="True"/>
+                        <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" 
+                                 FontSize="18"  materialDesign:HintAssist.Hint="Фамилия" materialDesign:HintAssist.IsFloating="True"/>
+                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" 
+                                 FontSize="18" materialDesign:HintAssist.Hint="Имя" materialDesign:HintAssist.IsFloating="True"/>
 
-                        <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" FontSize="18"  materialDesign:HintAssist.Hint="Почта" Margin="0,35,0,0" materialDesign:HintAssist.IsFloating="True"/>
-                        <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" FontSize="18"  materialDesign:HintAssist.Hint="Пароль" materialDesign:HintAssist.IsFloating="True"/>
+                        <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" FontSize="18" 
+                                 materialDesign:HintAssist.Hint="Почта" Margin="0,35,0,0" materialDesign:HintAssist.IsFloating="True"/>
+                        <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" FontSize="18" 
+                                 materialDesign:HintAssist.Hint="Пароль" materialDesign:HintAssist.IsFloating="True"/>
 
-                        <DatePicker Text="{Binding DateOfBirthday}" materialDesign:HintAssist.Hint="Дата рождения" IsTodayHighlighted="True" FontSize="18" Margin="0,35,0,0"/>
-                        <TextBox Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}" FontSize="18"  materialDesign:HintAssist.Hint="Номер телефона" materialDesign:HintAssist.IsFloating="True" MaxLength="11"/>
+                        <DatePicker Text="{Binding DateOfBirthday}" materialDesign:HintAssist.Hint="Дата рождения" 
+                                    IsTodayHighlighted="True" FontSize="18" Margin="0,35,0,0"/>
+                        <TextBox Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}" FontSize="18" 
+                                 materialDesign:HintAssist.Hint="Номер телефона" materialDesign:HintAssist.IsFloating="True" MaxLength="11"/>
 
-                        <Button Content="Создать аккаунт" Command="{Binding CreateNewAccountCommand, UpdateSourceTrigger=PropertyChanged}" FontSize="20" materialDesign:ButtonAssist.CornerRadius="15" Margin="0 50"/>
+                        <Button Content="Создать аккаунт" Command="{Binding CreateNewAccountCommand, UpdateSourceTrigger=PropertyChanged}" 
+                                FontSize="20" materialDesign:ButtonAssist.CornerRadius="15" Margin="0 50"/>
                     </StackPanel>
                 </Grid>
             </TabItem>

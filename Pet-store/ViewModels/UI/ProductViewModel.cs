@@ -12,7 +12,7 @@ namespace Pet_store.ViewModels.UI
     {
         #region Fields
         #region Name
-        private string? _name = SessionData.SelectedProduct.Product.Name;
+        private string? _name = SessionData.SelectedProduct?.Product.Name;
         public string? Name
         {
             get => _name;
@@ -21,7 +21,7 @@ namespace Pet_store.ViewModels.UI
         #endregion
 
         #region Rating
-        private float? _rating = SessionData.SelectedProduct.Product.Rating;
+        private float? _rating = SessionData.SelectedProduct?.Product.Rating;
         public float? Rating
         {
             get => _rating;
@@ -30,8 +30,8 @@ namespace Pet_store.ViewModels.UI
         #endregion
 
         #region Price
-        private decimal _price = SessionData.SelectedProduct.Product.Price;
-        public decimal Price
+        private decimal? _price = SessionData.SelectedProduct?.Product.Price;
+        public decimal? Price
         {
             get => _price;
             set => Set(ref _price, value);
@@ -48,8 +48,8 @@ namespace Pet_store.ViewModels.UI
         #endregion
 
         #region SelectedCategories
-        private List<Category> _selectedCategories = SessionData.SelectedProduct.ProductCategories;
-        public List<Category> SelectedCategories
+        private List<Category>? _selectedCategories = SessionData.SelectedProduct?.ProductCategories ?? new();
+        public List<Category>? SelectedCategories
         {
             get => _selectedCategories;
             set => Set(ref _selectedCategories, value);
@@ -57,7 +57,7 @@ namespace Pet_store.ViewModels.UI
         #endregion
 
         #region SelectedCategoryCB
-        private Category? _selectedCategoryCB;
+        private Category? _selectedCategoryCB = new();
         public Category? SelectedCategoryCB
         {
             get => _selectedCategoryCB;
@@ -66,7 +66,7 @@ namespace Pet_store.ViewModels.UI
         #endregion
 
         #region SelectedCategoryDG
-        private Category? _selectedCategoryDG;
+        private Category? _selectedCategoryDG = new();
         public Category? SelectedCategoryDG
         {
             get => _selectedCategoryDG;
@@ -88,11 +88,8 @@ namespace Pet_store.ViewModels.UI
         private bool _canAddCategoryCommandExcute(object p) => true;
         private void _onAddCategoryCommandExcuted(object p)
         {
-            if (!_selectedCategories.Contains(_selectedCategoryCB!))
-            {
+            if (!_selectedCategories.Contains(_selectedCategoryCB!))            
                 _selectedCategories.Add(_selectedCategoryCB);
-                _selectedCategoryCB = null;
-            }
         }
         #endregion
 
@@ -117,17 +114,28 @@ namespace Pet_store.ViewModels.UI
                 {
                     Name = _name,
                     Rating = _rating,
-                    Price = _price
+                    Price = (decimal)_price
                 };
+                DataBaseContext.Instance.Add(newProduct);
                 DataBaseContext.Instance.SaveChanges();
 
                 if (_selectedCategories.Count != 0)
-                    _selectedCategories.ForEach(c => new ProductCategory()
+                    _selectedCategories.ForEach(c =>
                     {
-                        IdProduct = newProduct.Id,
-                        IdCategory = c.Id
+                        var newProductCategory = new ProductCategory()
+                        {
+                            IdProduct = newProduct.Id,
+                            IdCategory = c.Id
+                        };
+
+                        DataBaseContext.Instance.ProductCategories.Add(newProductCategory);
                     });
+
                 DataBaseContext.Instance.SaveChanges();
+
+                AdministratorViewModel._listProduct = DataBaseContext.Instance.InBasket;
+
+                SessionData.CurrentDialogue.Close();
             }
         }
         #endregion

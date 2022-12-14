@@ -24,7 +24,7 @@ namespace Pet_store.ViewModels.UI
         #endregion
 
         #region SelectedRole
-        private Role _selectedRole = SessionData.SelectedUser.UserRole;
+        private Role _selectedRole = SessionData.SelectedUser?.UserRole;
         public Role SelectedRole
         {
             get => _selectedRole;
@@ -34,7 +34,7 @@ namespace Pet_store.ViewModels.UI
 
         #region LastName
         [Required(ErrorMessage = "Не указана фамилия")]
-        private string _lastName = SessionData.SelectedUser.User.Lastname;
+        private string _lastName = SessionData.SelectedUser?.User.Lastname;
         public string LastName
         {
             get => _lastName;
@@ -44,7 +44,7 @@ namespace Pet_store.ViewModels.UI
 
         #region Name
         [Required(ErrorMessage = "Не указано имя")]
-        private string _name = SessionData.SelectedUser.User.Name;
+        private string _name = SessionData.SelectedUser?.User.Name;
         public string Name
         {
             get => _name;
@@ -53,7 +53,7 @@ namespace Pet_store.ViewModels.UI
         #endregion
 
         #region Email
-        private string _email = SessionData.SelectedUser.User.Email;
+        private string _email = SessionData.SelectedUser?.User.Email;
         [Required(ErrorMessage = "Не указан электронный адрес почты")]
         [EmailAddress(ErrorMessage = "Некорректный адрес")]
         public string Email
@@ -64,7 +64,7 @@ namespace Pet_store.ViewModels.UI
         #endregion
 
         #region Password
-        private string _password = SessionData.SelectedUser.User.Password;
+        private string _password = SessionData.SelectedUser?.User.Password;
         [Required(ErrorMessage = "Не указан пароль")]
         public string Password
         {
@@ -74,7 +74,7 @@ namespace Pet_store.ViewModels.UI
         #endregion
 
         #region DateOfBirthday
-        private DateOnly? _dateOfBirthday = SessionData.SelectedUser.User.DateOfBirthday;
+        private DateOnly? _dateOfBirthday = SessionData.SelectedUser?.User.DateOfBirthday;
         [Required(ErrorMessage = "Не указана дата рождения")]
         public DateOnly? DateOfBirthday
         {
@@ -84,7 +84,7 @@ namespace Pet_store.ViewModels.UI
         #endregion
 
         #region Phone
-        private string _phone = SessionData.SelectedUser.User.Phone;
+        private string _phone = SessionData.SelectedUser?.User.Phone;
         public string Phone
         {
             get => _phone;
@@ -116,7 +116,7 @@ namespace Pet_store.ViewModels.UI
 
         private void SaveData()
         {
-            SessionData.CurrentUser = new User()
+            var newUser = new User()
             {
                 IdRole = Role.ROLE_CUSTOMER,
                 Lastname = LastName,
@@ -127,7 +127,7 @@ namespace Pet_store.ViewModels.UI
                 DateOfBirthday = DateOfBirthday
             };
 
-            DataBaseContext.Instance.Users.Add(SessionData.CurrentUser);
+            DataBaseContext.Instance.Users.Add(newUser);
             DataBaseContext.Instance.SaveChanges();
         }
         #endregion

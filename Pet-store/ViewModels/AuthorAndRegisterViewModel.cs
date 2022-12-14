@@ -119,6 +119,7 @@ namespace Pet_store.ViewModels
                 SaveData();
                 SessionData.CurrentWindow = new Catalog();
                 SessionData.CurrentWindow.Show();
+
             }
             else
                 DataCheck.ShowErrors();

@@ -14,5 +14,7 @@ namespace Pet_store.Models
         public string Name { get; set; } = null!;
 
         public virtual ICollection<ProductCategory> ProductCategories { get; set; }
+
+        public override string ToString() => Name;
     }
 }

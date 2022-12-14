@@ -19,5 +19,7 @@ namespace Pet_store.Models
         public const int ROLE_CUSTOMER = 5;
         public const int ROLE_EMPLOYEE = 6;
         public const int ROLE_ADMINISTRATOR = 7;
+
+        public override string ToString() => Name;
     }
 }

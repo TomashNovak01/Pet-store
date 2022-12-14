@@ -16,7 +16,7 @@ namespace Pet_store.ViewModels
         public static User CurrentUser => SessionData.CurrentUser;
 
         #region ListUsers
-        private List<UsersList> _listUsers = DataBaseContext.Instance.UsersLists;
+        public static List<UsersList> _listUsers = DataBaseContext.Instance.UsersLists;
         public List<UsersList> ListUsers
         {
             get => _listUsers;
@@ -34,7 +34,7 @@ namespace Pet_store.ViewModels
         #endregion
 
         #region ListProduct
-        private List<ProductIsInBasket> _listProduct = DataBaseContext.Instance.InBasket;
+        public static List<ProductIsInBasket> _listProduct = DataBaseContext.Instance.InBasket;
         public List<ProductIsInBasket> ListProduct
         {
             get => _listProduct;
@@ -97,8 +97,11 @@ namespace Pet_store.ViewModels
         private bool _canGoToUserCommandExcute(object p) => true;
         private void _onGoToUserCommandExcuted(object p)
         {
+            SessionData.SelectedUser = null;
             SessionData.CurrentDialogue = new Views.UI.User();
             SessionData.CurrentDialogue.Show();
+
+            _listUsers = DataBaseContext.Instance.UsersLists;
         }
         #endregion
 
@@ -138,8 +141,11 @@ namespace Pet_store.ViewModels
         private bool _canGoToProductCommandExcute(object p) => true;
         private void _onGoToProductCommandExcuted(object p)
         {
+            SessionData.SelectedProduct = null;
             SessionData.CurrentDialogue = new Views.UI.Product();
             SessionData.CurrentDialogue.Show();
+
+            ListProduct = DataBaseContext.Instance.InBasket;
         }
         #endregion
 

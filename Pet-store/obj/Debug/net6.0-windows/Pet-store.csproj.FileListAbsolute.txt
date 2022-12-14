@@ -43,8 +43,6 @@ F:\Home Work\Pet-store\Pet-store\obj\Debug\net6.0-windows\Views\Catalog.baml
 F:\Home Work\Pet-store\Pet-store\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
 F:\Home Work\Pet-store\Pet-store\bin\Debug\net6.0-windows\Castle.Core.dll
 F:\Home Work\Pet-store\Pet-store\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.Proxies.dll
-F:\Home Work\Pet-store\Pet-store\obj\Debug\net6.0-windows\Views\UI\ProductUserControl.g.cs
-F:\Home Work\Pet-store\Pet-store\obj\Debug\net6.0-windows\Views\UI\ProductUserControl.baml
 F:\Home Work\Pet-store\Pet-store\obj\Debug\net6.0-windows\Views\Administrator.g.cs
 F:\Home Work\Pet-store\Pet-store\obj\Debug\net6.0-windows\Views\Employee.g.cs
 F:\Home Work\Pet-store\Pet-store\obj\Debug\net6.0-windows\Views\Administrator.baml
