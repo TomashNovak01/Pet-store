@@ -6,21 +6,20 @@ namespace Pet_store.Data
     public static class SessionData
     {
         #region CurrentUser
-        private static User? _currentUser;
-        public static User? CurrentUser
+        private static User _currentUser = new()
+        {
+            IdRole = Role.ROLE_GUEST,
+            Lastname = "Гость",
+            Name = "",
+            Email = "",
+            Password = "",
+            Phone = "",
+            DateOfBirthday = System.DateOnly.MinValue,
+        };
+        public static User CurrentUser
         {
             get => _currentUser;
-            set
-            {
-                if (value == null)
-                    _currentUser = new User()
-                    {
-                        IdRole = Role.ROLE_GUEST,
-                        Name = "Гость"
-                    };
-                else
-                    _currentUser = value;
-            }
+            set => _currentUser = value;
         }
         #endregion
 

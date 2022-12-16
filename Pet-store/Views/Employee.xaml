@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pet_store.Views"
         xmlns:viewModel="clr-namespace:Pet_store.ViewModels"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="Employee" Height="600" Width="1200">
+        Title="Employee" Height="600" MinHeight="600" Width="1200" MinWidth="1200" WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
         <viewModel:EmployeeViewModel/>
@@ -22,23 +23,36 @@
 
         <TabControl>
             <TabItem Header="Клиенты">
-                <DataGrid ItemsSource="{Binding ListUsers, UpdateSourceTrigger=PropertyChanged}" 
-                              AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Фамилия" 
-                                                Binding="{Binding Lastname, UpdateSourceTrigger=PropertyChanged}"/>
-                        <DataGridTextColumn Header="Имя" 
-                                                Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-                        <DataGridTextColumn Header="Электронная почта" 
-                                                Binding="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
-                        <DataGridTextColumn Header="Пароль" 
-                                                Binding="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
-                        <DataGridTextColumn Header="Номер телефона" 
-                                                Binding="{Binding Phone, UpdateSourceTrigger=PropertyChanged}"/>
-                        <DataGridTextColumn Header="Дата рождения" 
-                                                Binding="{Binding DateOfBirthday, UpdateSourceTrigger=PropertyChanged}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="10*"/>
+                    </Grid.RowDefinitions>
+                    <ComboBox ItemsSource="{Binding SearchListUser, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding SearchUser, UpdateSourceTrigger=PropertyChanged}"
+                              materialDesign:HintAssist.Hint="Поиск" IsEditable="True" Margin="50 0">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding UpdateProductListCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding ListUsers, UpdateSourceTrigger=PropertyChanged}" 
+                                  AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <materialDesign:DataGridTextColumn Header="Фамилия" 
+                                                    Binding="{Binding Lastname, UpdateSourceTrigger=PropertyChanged}"/>
+                            <materialDesign:DataGridTextColumn Header="Имя" 
+                                                    Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                            <materialDesign:DataGridTextColumn Header="Электронная почта" 
+                                                    Binding="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
+                            <materialDesign:DataGridTextColumn Header="Номер телефона" 
+                                                    Binding="{Binding Phone, UpdateSourceTrigger=PropertyChanged}"/>
+                            <materialDesign:DataGridTextColumn Header="Дата рождения" 
+                                                    Binding="{Binding DateOfBirthday, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
             </TabItem>
             <TabItem Header="Покупки">
                 <TabControl>
@@ -46,10 +60,11 @@
                         <DataGrid ItemsSource="{Binding ListBaskets, UpdateSourceTrigger=PropertyChanged}" 
                                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Индекс" Binding="{Binding Id}"/>
-                                <DataGridTextColumn Header="Индекс Заказа" Binding="{Binding IdOrder}"/>
-                                <DataGridTextColumn Header="Индекс продукта" Binding="{Binding IdProduct}"/>
-                                <DataGridTextColumn Header="Количество" Binding="{Binding Count, StringFormat={}{0} шт.}"/>
+                                <materialDesign:DataGridTextColumn Header="Индекс" Binding="{Binding Id}"/>
+                                <materialDesign:DataGridTextColumn Header="ФИ клиента" Binding="{Binding FullNameUser}"/>
+                                <materialDesign:DataGridTextColumn Header="Индекс Заказа" Binding="{Binding IdOrder}"/>
+                                <materialDesign:DataGridTextColumn Header="Индекс продукта" Binding="{Binding IdProduct}"/>
+                                <materialDesign:DataGridTextColumn Header="Количество" Binding="{Binding Count, StringFormat={}{0} шт.}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </TabItem>
@@ -57,10 +72,11 @@
                         <DataGrid ItemsSource="{Binding ListOrders, UpdateSourceTrigger=PropertyChanged}" 
                                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Индекс" Binding="{Binding Id}"/>
-                                <DataGridTextColumn Header="Индекс клиента" Binding="{Binding IdUser}"/>
-                                <DataGridTextColumn Header="Дата заказа" Binding="{Binding DateOfOrder}"/>
-                                <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat={}{0} руб.}"/>
+                                <materialDesign:DataGridTextColumn Header="Индекс" Binding="{Binding Id}"/>
+                                <materialDesign:DataGridTextColumn Header="Индекс клиента" Binding="{Binding IdUser}"/>
+                                <materialDesign:DataGridTextColumn Header="ФИ клиента" Binding="{Binding FullNameUser}"/>
+                                <materialDesign:DataGridTextColumn Header="Дата заказа" Binding="{Binding DateOfOrder}"/>
+                                <materialDesign:DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat={}{0} руб.}"/>
                                 <DataGridTemplateColumn Header="Готовность" SortMemberPath="IsReady">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>

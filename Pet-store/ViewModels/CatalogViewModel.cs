@@ -13,6 +13,8 @@ namespace Pet_store.ViewModels
     internal class CatalogViewModel : ViewModelBase
     {
         #region Fields
+        public static User User => SessionData.CurrentUser;
+
         #region ListProduct
         private List<ProductIsInBasket> _listProduct = DataBaseContext.Instance.InBasket;
         public List<ProductIsInBasket> ListProduct
@@ -32,7 +34,7 @@ namespace Pet_store.ViewModels
         #endregion
 
         #region SearchList
-        private List<string> _searchList;
+        private List<string> _searchList = DataBaseContext.Instance.Products.Select(c => c.Name).ToList();
         public List<string> SearchList
         {
             get => _searchList;
@@ -40,18 +42,39 @@ namespace Pet_store.ViewModels
         }
         #endregion
 
-        #region CurrentUser
-        public static User User => SessionData.CurrentUser;
+        #region Search
+        private string _search;
+        public string Search
+        {
+            get => _search;
+            set => Set(ref _search, value);
+        }
         #endregion
+
+        #region IsVisibleMyOrders
+        private object _isVisibleMyOrders = Visibility.Collapsed;
+        public object IsVisibleMyOrders
+        {
+            get => _isVisibleMyOrders;
+            set
+            {
+                if (User.IdRole == Role.ROLE_CUSTOMER)
+                    _isVisibleMyOrders = Visibility.Visible;
+                else
+                    _isVisibleMyOrders = Visibility.Collapsed;
+            }
+        }
+        #endregion        
         #endregion
 
         public CatalogViewModel()
         {
-            //FillSearchList();
+            FillSearchList();
 
             GoToAuthorization = new LambdaCommand(_onGoToAuthorizationCommandExcuted, _canGoToAuthorizationCommandExcute);
+            UpdateProductListCommand = new LambdaCommand(_onUpdateProductListCommandExcuted, _canUpdateProductListCommandExcute);
             CreateAnOrder = new LambdaCommand(_onCreateAnOrderCommandExcuted, _canCreateAnOrderCommandExcute);
-            AddInBasket = new LambdaCommand(_onAddInBasketCommandExcuted, _canAddInBasketCommandExcute);
+            EditBasketCommand = new LambdaCommand(_onEditBasketCommandExcuted, _canEditBasketCommandExcute);
             InitCurrentWindow = new LambdaCommand(_onInitCurrentWindowCommandExcuted, _canInitCurrentWindowCommandExcute);
         }
 
@@ -62,7 +85,7 @@ namespace Pet_store.ViewModels
         private void _onGoToAuthorizationCommandExcuted(object p)
         {
             SessionData.CurrentDialogue = new AuthorAndRegister();
-            SessionData.CurrentDialogue.Show();
+            SessionData.CurrentDialogue.ShowDialog();
         }
         #endregion
 
@@ -80,10 +103,23 @@ namespace Pet_store.ViewModels
         }
         #endregion
 
-        #region AddInBasket
-        public ICommand AddInBasket { get; }
-        private bool _canAddInBasketCommandExcute(object p) => true;
-        private void _onAddInBasketCommandExcuted(object p) => ProductsInBasket = DataBaseContext.Instance.InBasket.Where(p => p.IsInBasket).ToList();
+        #region UpdateProductListCommand
+        public ICommand UpdateProductListCommand { get; }
+        private bool _canUpdateProductListCommandExcute(object p) => !string.IsNullOrEmpty(_search);
+        private void _onUpdateProductListCommandExcuted(object p)
+        {
+            ListProduct = DataBaseContext.Instance.InBasket;
+
+            if(_search != "Отмена поиска")
+                ListProduct = _listProduct.Where(p => p.Product.Name.ToLower().Contains(_search.ToLower()) ||
+                                                      p.ProductCategories.Select(c => c.Name.ToLower()).Contains(_search.ToLower())).ToList();
+        }
+        #endregion
+
+        #region EditBasketCommand
+        public ICommand EditBasketCommand { get; }
+        private bool _canEditBasketCommandExcute(object p) => true;
+        private void _onEditBasketCommandExcuted(object p) => ProductsInBasket = DataBaseContext.Instance.InBasket.Where(p => p.IsInBasket).ToList();
         #endregion
 
         #region CreateAnOrder
@@ -94,7 +130,7 @@ namespace Pet_store.ViewModels
             if (SessionData.CurrentUser.IdRole != Role.ROLE_CUSTOMER || SessionData.CurrentUser == null)
             {
                 SessionData.CurrentWindow = new AuthorAndRegister();
-                SessionData.CurrentWindow.Show();
+                SessionData.CurrentWindow.ShowDialog();
                 return;
             }
 

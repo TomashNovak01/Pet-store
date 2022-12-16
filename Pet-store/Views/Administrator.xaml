@@ -8,7 +8,7 @@
         xmlns:viewModel="clr-namespace:Pet_store.ViewModels"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Administrator" Height="600" Width="1200">
+        Title="Administrator" Height="600" MinHeight="600" Width="1200" MinWidth="1200" WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
         <viewModel:AdministratorViewModel/>
@@ -26,26 +26,26 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
-                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
 
                     <DataGrid ItemsSource="{Binding ListUsers, UpdateSourceTrigger=PropertyChanged}" 
                               SelectedItem="{Binding SelectedUser, UpdateSourceTrigger=PropertyChanged}"
                               AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Фамилия" 
+                            <materialDesign:DataGridTextColumn Header="Фамилия" 
                                                 Binding="{Binding User.Lastname, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="Имя" 
+                            <materialDesign:DataGridTextColumn Header="Имя" 
                                                 Binding="{Binding User.Name, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="Электронная почта" 
+                            <materialDesign:DataGridTextColumn Header="Электронная почта" 
                                                 Binding="{Binding User.Email, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="Пароль" 
+                            <materialDesign:DataGridTextColumn Header="Пароль" 
                                                 Binding="{Binding User.Password, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="Номер телефона" 
+                            <materialDesign:DataGridTextColumn Header="Номер телефона" 
                                                 Binding="{Binding User.Phone, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="Дата рождения" 
+                            <materialDesign:DataGridTextColumn Header="Дата рождения" 
                                                 Binding="{Binding User.DateOfBirthday, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="Роль" 
+                            <materialDesign:DataGridTextColumn Header="Роль" 
                                                 Binding="{Binding UserRole.Name, UpdateSourceTrigger=PropertyChanged}"/>
                         </DataGrid.Columns>
                         <i:Interaction.Triggers>
@@ -60,9 +60,12 @@
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                     </DataGrid>
-
-                    <Button Grid.Row="1" Command="{Binding GoToUser}" 
-                                Content="Добавить пользователя" materialDesign:ButtonAssist.CornerRadius="15" Margin="10 5"/>
+                    <Button Grid.Row="1" HorizontalAlignment="Right" Margin="15 5"
+                            Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+                            ToolTip="MaterialDesignFloatingActionLightButton"
+                            Command="{Binding GoToUser}">
+                        <materialDesign:PackIcon Width="35" Height="35" Kind="Plus"/>
+                    </Button>
                     </Grid>
                 
             </TabItem>
@@ -70,20 +73,20 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
-                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
 
                     <DataGrid ItemsSource="{Binding ListProduct, UpdateSourceTrigger=PropertyChanged}" 
                               SelectedItem="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}"
                               AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Наименование" 
+                            <materialDesign:DataGridTextColumn Header="Наименование" 
                                                 Binding="{Binding Product.Name, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="Рейтинг" 
+                            <materialDesign:DataGridTextColumn Header="Рейтинг" 
                                                 Binding="{Binding Product.Rating, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="Цена" 
+                            <materialDesign:DataGridTextColumn Header="Цена" 
                                                 Binding="{Binding Product.Price, StringFormat={}{0} руб., UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="Категории" 
+                            <materialDesign:DataGridTextColumn Header="Категории" 
                                                 Binding="{Binding CategoriesName, UpdateSourceTrigger=PropertyChanged}"/>
                         </DataGrid.Columns>
                         <i:Interaction.Triggers>
@@ -98,10 +101,13 @@
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                     </DataGrid>
-                    
-                    <Button Grid.Row="1" Content="Добавить продукт" Command="{Binding GoToProduct}" 
-                                materialDesign:ButtonAssist.CornerRadius="15" Margin="10 5"/>
-                    </Grid>
+                    <Button Grid.Row="1" HorizontalAlignment="Right" Margin="15 5"
+                            Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+                            ToolTip="MaterialDesignFloatingActionLightButton"
+                            Command="{Binding GoToProduct}">
+                        <materialDesign:PackIcon Width="35" Height="35" Kind="Plus"/>
+                    </Button>
+                </Grid>
             </TabItem>
             <TabItem Header="Покупки">
                 <TabControl>
@@ -109,10 +115,11 @@
                         <DataGrid ItemsSource="{Binding ListBaskets, UpdateSourceTrigger=PropertyChanged}" 
                                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Индекс" Binding="{Binding Id}"/>
-                                <DataGridTextColumn Header="Индекс Заказа" Binding="{Binding IdOrder}"/>
-                                <DataGridTextColumn Header="Индекс продукта" Binding="{Binding IdProduct}"/>
-                                <DataGridTextColumn Header="Количество" Binding="{Binding Count, StringFormat={}{0} шт.}"/>
+                                <materialDesign:DataGridTextColumn Header="Индекс" Binding="{Binding Id}"/>
+                                <materialDesign:DataGridTextColumn Header="Индекс Заказа" Binding="{Binding IdOrder}"/>
+                                <materialDesign:DataGridTextColumn Header="ФИ клиента" Binding="{Binding FullNameUser}"/>
+                                <materialDesign:DataGridTextColumn Header="Индекс продукта" Binding="{Binding IdProduct}"/>
+                                <materialDesign:DataGridTextColumn Header="Количество" Binding="{Binding Count, StringFormat={}{0} шт.}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </TabItem>
@@ -120,11 +127,12 @@
                         <DataGrid ItemsSource="{Binding ListOrders, UpdateSourceTrigger=PropertyChanged}" 
                                   AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Индекс" Binding="{Binding Id}"/>
-                                <DataGridTextColumn Header="Индекс клиента" Binding="{Binding IdUser}"/>
-                                <DataGridTextColumn Header="Дата заказа" Binding="{Binding DateOfOrder}"/>
-                                <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat={}{0} руб.}"/>
-                                <DataGridTextColumn Header="Готовность" Binding="{Binding IsReady}"/>
+                                <materialDesign:DataGridTextColumn Header="Индекс" Binding="{Binding Id}"/>
+                                <materialDesign:DataGridTextColumn Header="Индекс клиента" Binding="{Binding IdUser}"/>
+                                <materialDesign:DataGridTextColumn Header="ФИ клиента" Binding="{Binding FullNameUser}"/>
+                                <materialDesign:DataGridTextColumn Header="Дата заказа" Binding="{Binding DateOfOrder}"/>
+                                <materialDesign:DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat={}{0} руб.}"/>
+                                <materialDesign:DataGridTextColumn Header="Готовность" Binding="{Binding IsReady}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </TabItem>

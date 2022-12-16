@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Pet_store.Models
 {
@@ -12,5 +13,7 @@ namespace Pet_store.Models
 
         public virtual Order IdOrderNavigation { get; set; } = null!;
         public virtual Product IdProductNavigation { get; set; } = null!;
+
+        public string FullNameUser => DataBaseContext.Instance.Orders.First(o => o.Id == IdOrder).FullNameUser;
     }
 }

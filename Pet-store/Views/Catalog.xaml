@@ -8,7 +8,15 @@
         xmlns:viewModel="clr-namespace:Pet_store.ViewModels"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="Каталог" Height="600" Width="1200" Loaded="Window_Loaded">
+        Title="Каталог" Height="600" MinHeight="600" Width="1200" MinWidth="1200" 
+        Loaded="Window_Loaded" WindowStartupLocation="CenterScreen"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="18"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
 
     <Window.DataContext>
         <viewModel:CatalogViewModel/>
@@ -28,7 +36,8 @@
             <StatusBarItem Content="{Binding User.FullName, UpdateSourceTrigger=PropertyChanged}" ContentStringFormat="Вы вошли как: {0}"/>
         </StatusBar>
 
-        <TabControl>
+        <TabControl materialDesign:ColorZoneAssist.Mode="PrimaryMid"
+                Style="{StaticResource MaterialDesignFilledTabControl}">
             <TabItem Header="Товары">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -36,21 +45,38 @@
                         <RowDefinition Height="10*"/>
                     </Grid.RowDefinitions>
 
-                    <ComboBox ItemsSource="{Binding SearchList, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Поиск" materialDesign:HintAssist.HintOpacity=".26" IsEditable="True" Margin="50 0"/>
+                    <ComboBox ItemsSource="{Binding SearchList, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding Search, UpdateSourceTrigger=PropertyChanged}"
+                              materialDesign:HintAssist.Hint="Поиск" IsEditable="True" Margin="50 0">
+                              <i:Interaction.Triggers>
+                                  <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding UpdateProductListCommand}"/>
+                                  </i:EventTrigger>
+                              </i:Interaction.Triggers>
+                    </ComboBox>
 
                     <DataGrid Grid.Row="1" ItemsSource="{Binding ListProduct, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Наименование" Binding="{Binding Product.Name, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="Рейтинг" Binding="{Binding Product.Rating, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="Цена" Binding="{Binding Product.Price, StringFormat={}{0} руб., UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="Категории" Binding="{Binding CategoriesName, UpdateSourceTrigger=PropertyChanged}"/>
+                            <materialDesign:DataGridTextColumn Header="Наименование" Binding="{Binding Product.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTemplateColumn Header="Рейтинг">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <materialDesign:RatingBar Value="{Binding Product.Rating, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <materialDesign:DataGridTextColumn Header="Цена" Binding="{Binding Product.Price, StringFormat={}{0} руб., UpdateSourceTrigger=PropertyChanged}"/>
+                            <materialDesign:DataGridTextColumn Header="Категории" Binding="{Binding CategoriesName, UpdateSourceTrigger=PropertyChanged}"/>
+
                             <DataGridTemplateColumn Header="В корзину" SortMemberPath="IsInBasket">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ToggleButton IsChecked="{Binding IsInBasket, UpdateSourceTrigger=PropertyChanged}">
+                                        <ToggleButton IsChecked="{Binding IsInBasket, UpdateSourceTrigger=PropertyChanged}" 
+                                                      Style="{StaticResource MaterialDesignSwitchLightToggleButton}"
+                                                      ToolTip="MaterialDesignSwitchLightToggleButton">
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="Checked">
-                                                    <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.AddInBasket}"/>
+                                                    <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.EditBasketCommand}"/>
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>
                                         </ToggleButton>
@@ -65,27 +91,53 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
-                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
 
                     <DataGrid Grid.Row="0" ItemsSource="{Binding ProductsInBasket, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Наименование" Binding="{Binding Product.Name, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="Рейтинг" Binding="{Binding Product.Rating, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="Цена" Binding="{Binding Product.Price, StringFormat={}{0} руб., UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridCheckBoxColumn Header="В корзину" Binding="{Binding IsInBasket, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False"/>
-                            <DataGridTemplateColumn Header="Количество" SortMemberPath="Count">
+                            <materialDesign:DataGridTextColumn Header="Наименование" Binding="{Binding Product.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTemplateColumn Header="Рейтинг">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <materialDesign:RatingBar Value="{Binding Product.Rating, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <materialDesign:DataGridTextColumn Header="Цена" Binding="{Binding Product.Price, StringFormat={}{0} руб., UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTemplateColumn Header="В корзину" SortMemberPath="IsInBasket">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ToggleButton IsChecked="{Binding IsInBasket, UpdateSourceTrigger=PropertyChanged}">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Checked">
+                                                    <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.EditBasketCommand}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </ToggleButton>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Количество">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-
-                    <Button Grid.Row="1" Content="Заказать" Command="{Binding CreateAnOrder}" Margin="50 0" materialDesign:ButtonAssist.CornerRadius="15"/>
+                    <Button Grid.Row="1" HorizontalAlignment="Right" Margin="15 5"
+                            Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+                            ToolTip="MaterialDesignFloatingActionLightButton"
+                            Command="{Binding CreateAnOrder}">
+                        <materialDesign:PackIcon Width="35" Height="35" Kind="BasketPlusOutline"/>
+                    </Button>
                 </Grid>
+            </TabItem>
+
+            <!--Visibility="{Binding IsVisibleMyOrders, UpdateSourceTrigger=PropertyChanged}"-->
+            <TabItem Header="Мои заказы" >
             </TabItem>
         </TabControl>
     </DockPanel>

@@ -48,17 +48,15 @@ namespace Pet_store.ViewModels
 
         #region Password
         private string _password;
-        [Required(ErrorMessage = "Не указан пароль")]
         public string Password
         {
-            get => _password;
+            private get => _password;
             set => Set(ref _password, value);
         }
         #endregion
 
         #region DateOfBirthday
         private DateOnly _dateOfBirthday;
-        [Required(ErrorMessage = "Не указана дата рождения")]
         public DateOnly DateOfBirthday
         {
             get => _dateOfBirthday;

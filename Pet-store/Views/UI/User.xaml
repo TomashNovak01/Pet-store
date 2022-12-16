@@ -7,38 +7,106 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewModel ="clr-namespace:Pet_store.ViewModels.UI"
         mc:Ignorable="d"
-        Title="User" Height="500" Width="600">
+        Title="User" Height="550" Width="600" WindowStartupLocation="CenterOwner" ResizeMode="CanMinimize"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="18"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
 
     <Window.DataContext>
         <viewModel:UserViewModel/>
     </Window.DataContext>
 
-    <Grid>
-        <StackPanel Orientation="Vertical" Margin="50 0">
-            <ComboBox ItemsSource="{Binding ListRoles, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding SelectedRole, UpdateSourceTrigger=PropertyChanged}"
-                      DisplayMemberPath="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
-                      materialDesign:HintAssist.Hint="Роль"
-                      Margin="0 20"/>
+    <materialDesign:Card 
+            Padding="32" Margin="16"
+            materialDesign:ShadowAssist.ShadowDepth="Depth3">
+        <Grid>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" FontSize="18" 
-                     materialDesign:HintAssist.Hint="Фамилия"/>
-            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" FontSize="18"
-                     materialDesign:HintAssist.Hint="Имя"/>
+                    <materialDesign:PackIcon Kind="AccountGroupOutline" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="30" Height="30"/>
+                    <ComboBox Grid.Column="1" ItemsSource="{Binding ListRoles, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding SelectedRole, UpdateSourceTrigger=PropertyChanged}"
+                              DisplayMemberPath="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                              materialDesign:HintAssist.Hint="Роль"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" FontSize="18" Margin="0,35,0,0"
-                     materialDesign:HintAssist.Hint="Электронная почта"/>
-            <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" FontSize="18"
-                     materialDesign:HintAssist.Hint="Пароль"/>
+                    <materialDesign:PackIcon Kind="FormTextbox" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="30" Height="30"/>
+                    <TextBox Grid.Column="1" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" 
+                                     materialDesign:HintAssist.Hint="Фамилия" materialDesign:HintAssist.IsFloating="True"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
 
-            <DatePicker Text="{Binding DateOfBirthday, UpdateSourceTrigger=PropertyChanged}" IsTodayHighlighted="True" FontSize="18" 
-                        Margin="0,35,0,0" materialDesign:HintAssist.Hint="Дата рождения"/>
-            <TextBox Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}" FontSize="18" MaxLength="11"
-                     materialDesign:HintAssist.Hint="Номер телефона"/>
+                    <materialDesign:PackIcon Kind="FormTextbox" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="30" Height="30"/>
+                    <TextBox Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" 
+                                     materialDesign:HintAssist.Hint="Имя" materialDesign:HintAssist.IsFloating="True"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
 
-        </StackPanel>
-        <Button Content="Создать аккаунт" 
-                Command="{Binding CreateNewAccountCommand, UpdateSourceTrigger=PropertyChanged}" 
-                FontSize="20" VerticalAlignment="Bottom" Margin="15 10"/>
-    </Grid>
+                    <materialDesign:PackIcon Kind="EmailOutline" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="30" Height="30"/>
+                    <TextBox Grid.Column="1" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" 
+                                         materialDesign:HintAssist.Hint="Почта" materialDesign:HintAssist.IsFloating="True"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <materialDesign:PackIcon Kind="LockOutline" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="30" Height="30"/>
+                    <TextBox Grid.Column="1" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" 
+                                         materialDesign:HintAssist.Hint="Пароль" materialDesign:HintAssist.IsFloating="True"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <materialDesign:PackIcon Kind="CalendarRange" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="30" Height="30"/>
+                    <DatePicker Grid.Column="1" Text="{Binding DateOfBirthday, UpdateSourceTrigger=PropertyChanged}"
+                                Style="{StaticResource MaterialDesignFilledDatePicker}"
+                                IsTodayHighlighted="True"
+                                materialDesign:HintAssist.Hint="Дата рождения" materialDesign:CalendarAssist.IsHeaderVisible="False">
+                    </DatePicker>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <materialDesign:PackIcon Kind="PhoneOutline" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="30" Height="30"/>
+                    <TextBox Grid.Column="1" Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}" MaxLength="11"
+                                     materialDesign:HintAssist.Hint="Номер телефона" materialDesign:HintAssist.IsFloating="True" 
+                                     materialDesign:TransitionAssist.DisableTransitions="True"/>
+                </Grid>
+
+            </StackPanel>
+            <Button Content="Создать аккаунт" 
+                    Command="{Binding CreateNewAccountCommand, UpdateSourceTrigger=PropertyChanged}"
+                    materialDesign:ButtonAssist.CornerRadius="15"
+                    FontSize="20" VerticalAlignment="Bottom" Margin="15 10"/>
+        </Grid>
+    </materialDesign:Card>
 </Window>

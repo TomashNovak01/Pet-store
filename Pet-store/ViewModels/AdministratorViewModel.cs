@@ -16,7 +16,7 @@ namespace Pet_store.ViewModels
         public static User CurrentUser => SessionData.CurrentUser;
 
         #region ListUsers
-        public static List<UsersList> _listUsers = DataBaseContext.Instance.UsersLists;
+        private List<UsersList> _listUsers = DataBaseContext.Instance.UsersLists;
         public List<UsersList> ListUsers
         {
             get => _listUsers;
@@ -34,7 +34,7 @@ namespace Pet_store.ViewModels
         #endregion
 
         #region ListProduct
-        public static List<ProductIsInBasket> _listProduct = DataBaseContext.Instance.InBasket;
+        private List<ProductIsInBasket> _listProduct = DataBaseContext.Instance.InBasket;
         public List<ProductIsInBasket> ListProduct
         {
             get => _listProduct;
@@ -88,7 +88,7 @@ namespace Pet_store.ViewModels
         private void _onGoToAuthorizationCommandExcuted(object p)
         {
             SessionData.CurrentDialogue = new AuthorAndRegister();
-            SessionData.CurrentDialogue.Show();
+            SessionData.CurrentDialogue.ShowDialog();
         }
         #endregion
 
@@ -99,9 +99,9 @@ namespace Pet_store.ViewModels
         {
             SessionData.SelectedUser = null;
             SessionData.CurrentDialogue = new Views.UI.User();
-            SessionData.CurrentDialogue.Show();
+            SessionData.CurrentDialogue.ShowDialog();
 
-            _listUsers = DataBaseContext.Instance.UsersLists;
+            ListUsers = DataBaseContext.Instance.UsersLists;
         }
         #endregion
 
@@ -114,7 +114,9 @@ namespace Pet_store.ViewModels
             {
                 SessionData.SelectedUser = SelectedUser;
                 SessionData.CurrentDialogue = new Views.UI.User();
-                SessionData.CurrentDialogue.Show();
+                SessionData.CurrentDialogue.ShowDialog();
+
+                ListUsers = DataBaseContext.Instance.UsersLists;
             }
             else
                 MessageBox.Show("Вы не можете редактировать администраторов", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -130,6 +132,7 @@ namespace Pet_store.ViewModels
             {
                 DataBaseContext.Instance.Users.Remove(SelectedUser.User);
                 DataBaseContext.Instance.SaveChanges();
+                ListUsers = DataBaseContext.Instance.UsersLists;
             }
             else
                 MessageBox.Show("Вы не можете удалять администраторов", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -143,7 +146,7 @@ namespace Pet_store.ViewModels
         {
             SessionData.SelectedProduct = null;
             SessionData.CurrentDialogue = new Views.UI.Product();
-            SessionData.CurrentDialogue.Show();
+            SessionData.CurrentDialogue.ShowDialog();
 
             ListProduct = DataBaseContext.Instance.InBasket;
         }
@@ -151,28 +154,25 @@ namespace Pet_store.ViewModels
 
         #region EditProduct
         public ICommand EditProduct { get; }
-        private bool _canEditProductCommandExcute(object p) => true;
+        private bool _canEditProductCommandExcute(object p) => _selectedProduct != null;
         private void _onEditProductCommandExcuted(object p)
         {
-            if (_selectedProduct != null)
-            {
-                SessionData.SelectedProduct = SelectedProduct;
-                SessionData.CurrentDialogue = new Views.UI.Product();
-                SessionData.CurrentDialogue.Show();
-            }
+            SessionData.SelectedProduct = SelectedProduct;
+            SessionData.CurrentDialogue = new Views.UI.Product();
+            SessionData.CurrentDialogue.ShowDialog();
+
+            ListProduct = DataBaseContext.Instance.InBasket;
         }
         #endregion
 
         #region DeleteProduct
         public ICommand DeleteProduct { get; }
-        private bool _canDeleteProductCommandExcute(object p) => true;
+        private bool _canDeleteProductCommandExcute(object p) => _selectedProduct != null;
         private void _onDeleteProductCommandExcuted(object p)
         {
-            if (_selectedProduct != null)
-            {
-                DataBaseContext.Instance.Products.Remove(SelectedProduct.Product);
-                DataBaseContext.Instance.SaveChanges();
-            }
+            DataBaseContext.Instance.Products.Remove(SelectedProduct.Product);
+            DataBaseContext.Instance.SaveChanges();
+            ListProduct = DataBaseContext.Instance.InBasket;
         }
         #endregion
         #endregion

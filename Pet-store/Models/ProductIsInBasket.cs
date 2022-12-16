@@ -29,6 +29,6 @@ namespace Pet_store.Models
             }
         }
         public bool IsInBasket { get; set; }
-        public int Count { get; set; }
+        public int Count { get; set; } = 1;
     }
 }

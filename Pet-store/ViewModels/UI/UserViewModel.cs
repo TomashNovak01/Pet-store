@@ -93,10 +93,7 @@ namespace Pet_store.ViewModels.UI
         #endregion
         #endregion
 
-        public UserViewModel()
-        {
-            CreateNewAccountCommand = new LambdaCommand(_onCreateNewAccountCommandExcuted, _canCreateNewAccountCommandExcute);
-        }
+        public UserViewModel() => CreateNewAccountCommand = new LambdaCommand(_onCreateNewAccountCommandExcuted, _canCreateNewAccountCommandExcute);
 
         #region Commands
         #region CreateNewAccountCommand

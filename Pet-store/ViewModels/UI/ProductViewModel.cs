@@ -85,22 +85,14 @@ namespace Pet_store.ViewModels.UI
         #region Commands
         #region AddCategory
         public ICommand AddCategory { get; }
-        private bool _canAddCategoryCommandExcute(object p) => true;
-        private void _onAddCategoryCommandExcuted(object p)
-        {
-            if (!_selectedCategories.Contains(_selectedCategoryCB!))            
-                _selectedCategories.Add(_selectedCategoryCB);
-        }
+        private bool _canAddCategoryCommandExcute(object p) => !SelectedCategories.Contains(_selectedCategoryCB!);
+        private void _onAddCategoryCommandExcuted(object p) => SelectedCategories.Add(_selectedCategoryCB);
         #endregion
 
         #region DeleteCategory
         public ICommand DeleteCategory { get; }
-        private bool _canDeleteCategoryCommandExcute(object p) => true;
-        private void _onDeleteCategoryCommandExcuted(object p)
-        {
-            if (_selectedCategoryDG != null)
-                _selectedCategories.Remove(_selectedCategoryDG);
-        }
+        private bool _canDeleteCategoryCommandExcute(object p) => _selectedCategoryDG != null;
+        private void _onDeleteCategoryCommandExcuted(object p) => SelectedCategories.Remove(_selectedCategoryDG);
         #endregion
 
         #region AddProduct
@@ -132,9 +124,6 @@ namespace Pet_store.ViewModels.UI
                     });
 
                 DataBaseContext.Instance.SaveChanges();
-
-                AdministratorViewModel._listProduct = DataBaseContext.Instance.InBasket;
-
                 SessionData.CurrentDialogue.Close();
             }
         }
