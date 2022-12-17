@@ -53,3 +53,17 @@ F:\Home Work\Pet-store\Pet-store\obj\Debug\net6.0-windows\Views\UI\Product.g.cs
 F:\Home Work\Pet-store\Pet-store\obj\Debug\net6.0-windows\Views\UI\Product.baml
 F:\Home Work\Pet-store\Pet-store\obj\Debug\net6.0-windows\Views\UI\User.g.cs
 F:\Home Work\Pet-store\Pet-store\obj\Debug\net6.0-windows\Views\UI\User.baml
+F:\Home Work\Pet-store\Pet-store\bin\Debug\net6.0-windows\Enums.NET.dll
+F:\Home Work\Pet-store\Pet-store\bin\Debug\net6.0-windows\MathNet.Numerics.dll
+F:\Home Work\Pet-store\Pet-store\bin\Debug\net6.0-windows\Microsoft.IO.RecyclableMemoryStream.dll
+F:\Home Work\Pet-store\Pet-store\bin\Debug\net6.0-windows\NPOI.OOXML.dll
+F:\Home Work\Pet-store\Pet-store\bin\Debug\net6.0-windows\NPOI.OpenXml4Net.dll
+F:\Home Work\Pet-store\Pet-store\bin\Debug\net6.0-windows\NPOI.OpenXmlFormats.dll
+F:\Home Work\Pet-store\Pet-store\bin\Debug\net6.0-windows\NPOI.dll
+F:\Home Work\Pet-store\Pet-store\bin\Debug\net6.0-windows\BouncyCastle.Crypto.dll
+F:\Home Work\Pet-store\Pet-store\bin\Debug\net6.0-windows\ICSharpCode.SharpZipLib.dll
+F:\Home Work\Pet-store\Pet-store\bin\Debug\net6.0-windows\SixLabors.Fonts.dll
+F:\Home Work\Pet-store\Pet-store\bin\Debug\net6.0-windows\SixLabors.ImageSharp.dll
+F:\Home Work\Pet-store\Pet-store\bin\Debug\net6.0-windows\System.Security.Cryptography.Pkcs.dll
+F:\Home Work\Pet-store\Pet-store\bin\Debug\net6.0-windows\System.Security.Cryptography.Xml.dll
+F:\Home Work\Pet-store\Pet-store\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll

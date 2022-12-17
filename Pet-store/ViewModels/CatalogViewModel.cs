@@ -1,8 +1,15 @@
-﻿using Pet_store.Data;
+﻿using NPOI.OpenXmlFormats.Wordprocessing;
+using NPOI.XWPF.UserModel;
+using Pet_store.Data;
 using Pet_store.Models;
+using Pet_store.Resources;
+using Pet_store.Resources.Base;
 using Pet_store.Views;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using World_of_books.Infrastructures.Commands;
@@ -14,6 +21,8 @@ namespace Pet_store.ViewModels
     {
         #region Fields
         public static User User => SessionData.CurrentUser;
+        private XWPFDocument _document { get; set; }
+        private List<(XWPFParagraph paragraph, CT_Bookmark bookmark)> _marks = new List<(XWPFParagraph paragraph, CT_Bookmark bookmark)>(1);
 
         #region ListProduct
         private List<ProductIsInBasket> _listProduct = DataBaseContext.Instance.InBasket;
@@ -25,7 +34,7 @@ namespace Pet_store.ViewModels
         #endregion
 
         #region ProductsInBasket
-        private List<ProductIsInBasket> _productsInBasket;
+        private List<ProductIsInBasket> _productsInBasket = new();
         public List<ProductIsInBasket> ProductsInBasket
         {
             get => _productsInBasket;
@@ -157,6 +166,28 @@ namespace Pet_store.ViewModels
                 });
 
             DataBaseContext.Instance.SaveChanges();
+            CreateOutputDocument(newOrder);
+        }
+
+        private void CreateOutputDocument(Order order)
+        {
+            DocumentBase documentBuilder = new DocumentCheck(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), order);
+            InitializeDocumentCreation(documentBuilder);
+        }
+
+        private void InitializeDocumentCreation(DocumentBase builder)
+        {
+            try
+            {
+                Task.Run(() => MessageBox.Show("Начато формирование документа...", "Информация", MessageBoxButton.OK, MessageBoxImage.Information));
+                builder.BeginDocumentCreation();
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show($"В процессе формирования документа произошла ошибка: \n{ex.Message}.", "Ошибка!",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         #endregion
 

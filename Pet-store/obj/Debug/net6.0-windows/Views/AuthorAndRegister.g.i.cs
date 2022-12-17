@@ -57,7 +57,7 @@ namespace Pet_store.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Pet-store;V1.0.0.0;component/views/authorandregister.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Pet-store;component/views/authorandregister.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\AuthorAndRegister.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
