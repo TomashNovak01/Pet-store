@@ -27,7 +27,7 @@ namespace Pet_store.ViewModels
         #endregion
 
         #region SearchListUser
-        private List<string> _searchListUser;
+        private List<string> _searchListUser = new();
         public List<string> SearchListUser
         {
             get => _searchListUser;

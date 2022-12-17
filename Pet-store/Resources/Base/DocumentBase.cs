@@ -22,7 +22,7 @@ namespace Pet_store.Resources.Base
         private string GetPath()
         {
             string currentDir = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
-            currentDir = Path.Combine(currentDir, "Resources", "!TemplateOfCheck.docx");
+            currentDir = Path.Combine(currentDir, "Resources", "33_TemplateOfCheck.docx");
 
             return currentDir;
         }

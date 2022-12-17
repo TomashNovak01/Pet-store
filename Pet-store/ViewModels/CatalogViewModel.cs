@@ -1,4 +1,5 @@
-﻿using NPOI.OpenXmlFormats.Wordprocessing;
+﻿using Microsoft.Win32;
+using NPOI.OpenXmlFormats.Wordprocessing;
 using NPOI.XWPF.UserModel;
 using Pet_store.Data;
 using Pet_store.Models;
@@ -151,8 +152,8 @@ namespace Pet_store.ViewModels
             Order newOrder = new Order()
             {
                 IdUser = SessionData.CurrentUser.Id,
-                DateOfOrder = System.DateTime.Now,
-                Price = ProductsInBasket.Sum(p => p.Product.Price)
+                DateOfOrder = DateTime.Now,
+                Price = ProductsInBasket.Sum(p => p.ProductTotalCost)
             };
             DataBaseContext.Instance.Orders.Add(newOrder);
             DataBaseContext.Instance.SaveChanges();
@@ -171,8 +172,20 @@ namespace Pet_store.ViewModels
 
         private void CreateOutputDocument(Order order)
         {
-            DocumentBase documentBuilder = new DocumentCheck(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), order);
-            InitializeDocumentCreation(documentBuilder);
+            SaveFileDialog saveFileDialog = new SaveFileDialog()
+            {
+                Title = "Формирование документа",
+                Filter = "Документы Microsoft Word (*.docx)|*.docx|Все файлы (*.*)|*.*",
+                OverwritePrompt = true,
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+            };
+            bool? resultToPath = saveFileDialog.ShowDialog();
+
+            if (resultToPath.HasValue && resultToPath.Value)
+            {
+                DocumentBase documentBuilder = new DocumentCheck(saveFileDialog.FileName, order);
+                InitializeDocumentCreation(documentBuilder);
+            }
         }
 
         private void InitializeDocumentCreation(DocumentBase builder)

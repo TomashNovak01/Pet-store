@@ -67,7 +67,7 @@
                                     <DataTemplate>
                                         <ToggleButton IsChecked="{Binding IsInBasket, UpdateSourceTrigger=PropertyChanged}" 
                                                       Style="{StaticResource MaterialDesignSwitchLightToggleButton}"
-                                                      ToolTip="MaterialDesignSwitchLightToggleButton">
+                                                      ToolTip="Добавить в корзину">
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="Checked">
                                                     <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.EditBasketCommand}"/>
@@ -123,7 +123,7 @@
                     </DataGrid>
                     <Button Grid.Row="1" HorizontalAlignment="Right" Margin="15 5"
                             Style="{StaticResource MaterialDesignFloatingActionLightButton}"
-                            ToolTip="MaterialDesignFloatingActionLightButton"
+                            ToolTip="Оформить заказ"
                             Command="{Binding CreateAnOrder}">
                         <materialDesign:PackIcon Width="35" Height="35" Kind="BasketPlusOutline"/>
                     </Button>

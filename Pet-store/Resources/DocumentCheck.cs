@@ -27,11 +27,11 @@ namespace Pet_store.Resources
                 switch (mark.bookmark.name)
                 {
                     case "IdOrder":
-                        mark.paragraph.ReplaceText("{Id Order}", order.Id.ToString());
+                        mark.paragraph.ReplaceText("{IdOrder}", order.Id.ToString());
                         break;
 
                     case "DateOfOrder":
-                        mark.paragraph.ReplaceText("{Date of Order}", order.DateOfOrder.ToString());
+                        mark.paragraph.ReplaceText("{DateOfOrder}", order.DateOfOrder.ToString());
                         break;
 
                     case "Customer":
@@ -43,14 +43,17 @@ namespace Pet_store.Resources
                         break;
 
                     case "ProductName":
+                        mark.paragraph.ReplaceText("{ProductName}", null);
                         InsertInfoAboutProductName(mark.paragraph, order);
                         break;
 
                     case "Count":
+                        mark.paragraph.ReplaceText("{Count}", null);
                         InsertInfoAboutProductCount(mark.paragraph, order);
                         break;
 
                     case "Price":
+                        mark.paragraph.ReplaceText("{Price}", null);
                         InsertInfoAboutProductCost(mark.paragraph, order);
                         break;
                 }

@@ -62,7 +62,7 @@
                     </DataGrid>
                     <Button Grid.Row="1" HorizontalAlignment="Right" Margin="15 5"
                             Style="{StaticResource MaterialDesignFloatingActionLightButton}"
-                            ToolTip="MaterialDesignFloatingActionLightButton"
+                            ToolTip="Добавить пользователя"
                             Command="{Binding GoToUser}">
                         <materialDesign:PackIcon Width="35" Height="35" Kind="Plus"/>
                     </Button>
@@ -103,7 +103,7 @@
                     </DataGrid>
                     <Button Grid.Row="1" HorizontalAlignment="Right" Margin="15 5"
                             Style="{StaticResource MaterialDesignFloatingActionLightButton}"
-                            ToolTip="MaterialDesignFloatingActionLightButton"
+                            ToolTip="Добавить продукт"
                             Command="{Binding GoToProduct}">
                         <materialDesign:PackIcon Width="35" Height="35" Kind="Plus"/>
                     </Button>

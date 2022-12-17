@@ -30,5 +30,7 @@ namespace Pet_store.Models
         }
         public bool IsInBasket { get; set; }
         public int Count { get; set; } = 1;
+
+        public decimal ProductTotalCost => Product.Price * Count;
     }
 }
