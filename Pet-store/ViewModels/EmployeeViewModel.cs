@@ -69,6 +69,7 @@ namespace Pet_store.ViewModels
 
             GoToAuthorization = new LambdaCommand(_onGoToAuthorizationCommandExcuted, _canGoToAuthorizationCommandExcute);
             GetReadyStatus = new LambdaCommand(_onGetReadyStatusCommandExcuted, _canGetReadyStatusCommandExcute);
+            UpdateListUserCommand = new LambdaCommand(_onUpdateListUserCommandExcuted, _canUpdateListUserCommandExcute);
         }
 
         #region Commands
@@ -95,7 +96,10 @@ namespace Pet_store.ViewModels
             _searchListUser.Add("Отмена поиска");
 
             foreach (var user in DataBaseContext.Instance.Users)
-                _searchListUser.Add(user.FullName);
+            {
+                _searchListUser.Add(user.Lastname);
+                _searchListUser.Add(user.Name);
+            }
         }
         #endregion
 

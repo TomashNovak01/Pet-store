@@ -9,7 +9,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="Каталог" Height="600" MinHeight="600" Width="1200" MinWidth="1200" 
-        Loaded="Window_Loaded" WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterScreen"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="18"
@@ -21,12 +21,6 @@
     <Window.DataContext>
         <viewModel:CatalogViewModel/>
     </Window.DataContext>
-
-    <!--<i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding InitCurrentWindow}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>-->
 
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -138,6 +132,7 @@
 
             <!--Visibility="{Binding IsVisibleMyOrders, UpdateSourceTrigger=PropertyChanged}"-->
             <TabItem Header="Мои заказы" >
+                
             </TabItem>
         </TabControl>
     </DockPanel>

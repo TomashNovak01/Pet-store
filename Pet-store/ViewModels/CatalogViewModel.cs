@@ -129,8 +129,7 @@ namespace Pet_store.ViewModels
         {
             if (SessionData.CurrentUser.IdRole != Role.ROLE_CUSTOMER || SessionData.CurrentUser == null)
             {
-                SessionData.CurrentWindow = new AuthorAndRegister();
-                SessionData.CurrentWindow.ShowDialog();
+                this.GoToAuthorization.Execute(null);
                 return;
             }
 

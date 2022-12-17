@@ -44,7 +44,7 @@
 
                     <materialDesign:PackIcon Kind="ShapeOutline" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="30" Height="30"/>
                     <ComboBox Grid.Column="1" ItemsSource="{Binding CategoriesList, UpdateSourceTrigger=PropertyChanged}"
-                              DisplayMemberPath="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                              DisplayMemberPath="Name"
                               SelectedItem="{Binding SelectedCategoryCB, UpdateSourceTrigger=PropertyChanged}"
                               materialDesign:HintAssist.Hint="Категории">
                               <i:Interaction.Triggers>

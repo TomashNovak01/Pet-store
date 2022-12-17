@@ -28,7 +28,7 @@ namespace Pet_store.Data
         public static ProductIsInBasket? SelectedProduct { get; set; }
 
         #region CurrentWindow
-        private static Window? _currentWindow;
+        private static Window? _currentWindow = App.Current.Windows[0];
         public static Window? CurrentWindow
         {
             get => _currentWindow;

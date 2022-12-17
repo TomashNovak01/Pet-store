@@ -34,7 +34,7 @@
                     <materialDesign:PackIcon Kind="AccountGroupOutline" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="30" Height="30"/>
                     <ComboBox Grid.Column="1" ItemsSource="{Binding ListRoles, UpdateSourceTrigger=PropertyChanged}"
                               SelectedItem="{Binding SelectedRole, UpdateSourceTrigger=PropertyChanged}"
-                              DisplayMemberPath="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                              DisplayMemberPath="Name"
                               materialDesign:HintAssist.Hint="Роль"/>
                 </Grid>
                 <Grid>
