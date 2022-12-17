@@ -102,7 +102,10 @@
                             <DataGridTemplateColumn Header="В корзину" SortMemberPath="IsInBasket">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ToggleButton IsChecked="{Binding IsInBasket, UpdateSourceTrigger=PropertyChanged}">
+                                        <ToggleButton 
+                                            IsChecked="{Binding IsInBasket, UpdateSourceTrigger=PropertyChanged}"
+                                            Style="{StaticResource MaterialDesignSwitchLightToggleButton}"
+                                            ToolTip="Убрать из корзины">
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="Checked">
                                                     <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.EditBasketCommand}"/>

@@ -17,6 +17,7 @@ namespace Pet_store.Models
         public decimal Price { get; set; }
 
         public bool IsReady { get; set; }
+        public string IsReadyString => IsReady ? "Готов" : "Неготов";
 
         public virtual User IdUserNavigation { get; set; } = null!;
         public virtual ICollection<Basket> Baskets { get; set; }

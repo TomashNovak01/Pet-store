@@ -95,7 +95,7 @@ namespace Pet_store.ViewModels
             _searchListUser.Clear();
             _searchListUser.Add("Отмена поиска");
 
-            foreach (var user in DataBaseContext.Instance.Users)
+            foreach (var user in DataBaseContext.Instance.Users.Where(u => u.IdRole == Role.ROLE_CUSTOMER))
             {
                 _searchListUser.Add(user.Lastname);
                 _searchListUser.Add(user.Name);

@@ -132,7 +132,7 @@
                                 <materialDesign:DataGridTextColumn Header="ФИ клиента" Binding="{Binding FullNameUser}"/>
                                 <materialDesign:DataGridTextColumn Header="Дата заказа" Binding="{Binding DateOfOrder}"/>
                                 <materialDesign:DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat={}{0} руб.}"/>
-                                <materialDesign:DataGridTextColumn Header="Готовность" Binding="{Binding IsReady}"/>
+                                <materialDesign:DataGridTextColumn Header="Готовность" Binding="{Binding IsReadyString}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </TabItem>
